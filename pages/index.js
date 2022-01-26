@@ -1,34 +1,9 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
+import React from 'react';
+import { useRouter } from 'next/router';
 import appConfig from '../config.json';
 
-function GlobalStyle() {
-  return (
-    <style global jsx>{`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-      body {
-        font-family: 'Open Sans', sans-serif;
-      }
-      /* App fit Height */ 
-      html, body, #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */ 
-    `}</style>
-  );
-}
+
 
 function Title(props) {
   const Tag = props.tag || 'h1';
@@ -60,12 +35,19 @@ function Title(props) {
 // export default HomePage
 
 export default function PaginaInicial() {
-  const username = 'peas';
+  // const username = 'lucianakyoko';
+  const [username, setUsername] = React.useState('lucianakyoko');
+  const roteamento = useRouter();
 
   return (
     <>
-      <GlobalStyle />
       <Box
+        onSubmit={function(event) {
+          event.preventDefault();
+          console.log('alguem submeteu o fom');
+          // window.location.href='/chat';
+          roteamento.push('/chat'); //muda para a página chat sem fazer o refresh na pagina
+        }}
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           backgroundColor: appConfig.theme.colors.primary['900'],
@@ -101,7 +83,27 @@ export default function PaginaInicial() {
               {appConfig.name}
             </Text>
 
+            {/* <input 
+              type="text"
+              value={username}
+              onChange={ function Handler(event) {
+                console.log('usuário digitou', event.target.value);
+
+                //onde está o valor?
+                const valor = event.target.value;
+
+                //Trocar o valor da variavel atraves do React e avise quem precisa
+                setUsername(valor)
+              }}  
+            /> */}
+
             <TextField
+              value={username}
+              onChange={ function Handler(event) {
+                console.log('usuário digitou', event.target.value);
+                const valor = event.target.value;
+                setUsername(valor)
+              }}
               fullWidth
               textFieldColors={{
                 neutral: {
