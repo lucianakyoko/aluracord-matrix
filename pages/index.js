@@ -46,7 +46,7 @@ export default function PaginaInicial() {
           event.preventDefault();
           console.log('alguem submeteu o fom');
           // window.location.href='/chat';
-          roteamento.push('/chat'); //muda para a página chat sem fazer o refresh na pagina
+          roteamento.push(`/chat?username=${username}`); //muda para a página chat sem fazer o refresh na pagina
         }}
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
